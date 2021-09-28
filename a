@@ -1,0 +1,8 @@
+      /*submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentProgress = currentProgress + 10;
+                progressBar.setProgress(currentProgress);
+                progressBar.setMax(100);
+            }
+        });*/
