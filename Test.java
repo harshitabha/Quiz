@@ -9,8 +9,8 @@ import java.util.Random;
 public class Test {
     Random r = new Random();
     /*terms in equation*/
-    private int num1;
-    private int num2;
+    private double num1;
+    private double num2;
     /*expression's operation (+-/x)*/
     private int op;
     /*Correct answer to the questions*/
@@ -33,36 +33,34 @@ public class Test {
         aofn = new ArrayList<Double>();
 
         /*generates two terms from 0 to 20*/
-        num1 = r.nextInt(20);
-        num2 = r.nextInt(20);
+        num1 = roundAvoid(r.nextDouble()*21);
+        num2 = roundAvoid(r.nextDouble()*21);
 
         /*generates operation, then solves the expression*/
         op = r.nextInt(4);
         if(op==0){
-            ans = num1+num2;
+            ans = roundAvoid(num1+num2)*1.00;
         }
         else if(op==1){
-            ans = (1.0*num1)/num2;
+            ans = roundAvoid((1.0*num1)/num2)*1.00;
         }
         else if(op==2){
-            ans = num1*num2;
+            ans = roundAvoid(num1*num2)*1.00;
         }
         else{
-            ans = num1-num2;
+            ans = roundAvoid(num1-num2)*1.00;
         }
 
-        /*generate fake answers, then call the functions*/
-    /*fake1 = retFakeAns();
-    fake2 = retFakeAns();
-    fake3 = retFakeAns();
-    shuffles a list of 3 fakes and one correct ans
-    */
         for(int i = 0; i<3; i++)
         {
             aofn.add(retFakeAns());
         }
         aofn.add(ans);
         Collections.shuffle(aofn);
+    }
+    public static double roundAvoid(double value) {
+        double scale = Math.pow(10, 2);
+        return Math.round(value * scale) / scale;
     }
 
     /*receives an answer and checks if it is correct
@@ -77,7 +75,7 @@ public class Test {
     /*Generates other answers for the questions
     called when pressed next or start*/
     public double retFakeAns(){
-        double rd = ans*r.nextDouble();
+        double rd = roundAvoid(ans*r.nextDouble());
         return rd;
     }
 

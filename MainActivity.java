@@ -42,6 +42,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         q = findViewById(R.id.question);
         qNum = 0;
 
+        // initialize questions and answers list
+        qList = new String[10];
+        ansChoices = new ArrayList<ArrayList<Double>>();
+
+        //generate the question list
+        Test ques;
+        for(int i = 0; i < 10; i++)
+        {
+            ques = new Test();
+            // add the question and ans choices to their lists
+            qList[i] = ques.toString();
+            ansChoices.add(ques.answerChoices()); // add the ans choices for each question
+        }
+
+        q.setText(qList[qNum]); // setting the question text view to the question generated from the list
+
         // initialize the choice buttons
         choices = new Button[4];
         choiceClicked = new ArrayList<Boolean>(); // shows which button is selected
@@ -56,29 +72,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     getPackageName());
             choices[i] = (Button) findViewById(resourceID);
             choices[i].setBackgroundColor(Color.parseColor("#d4d4d4"));
+            choices[i].setTextColor(Color.parseColor("#000000"));
+            Double c = ansChoices.get(qNum).get(i);
+            choices[i].setText(c.toString());
+
             //what to do when the button is pressed
             choices[i].setOnClickListener(this);
             choiceClicked.add(false); // initialize the choice clicked array
         }
-
-
-        // initialize questions and answers list
-        qList = new String[10];
-        ansChoices = new ArrayList<ArrayList<Double>>();
-
-        //generate the question list
-        Test ques;
-        for(int i = 0; i < 10; i++)
-        {
-            ques = new Test();
-            // add the question and ans choices to their lists
-            qList[i] = ques.toString();
-            ansChoices.add(ques.answerChoices()); // add the ans choices for each question
-        }
-        
-        // setting up what that page looks like when it opens
-        q.setText(qList[qNum]);
-
 
     }
 
